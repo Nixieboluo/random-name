@@ -6,6 +6,7 @@
   "extends": [
     "plugin:vue/essential",
     "eslint:recommended",
+    "google",
     "@vue/prettier"
   ],
   "parserOptions": {
