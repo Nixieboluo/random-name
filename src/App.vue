@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
+  <div class="mb-4" id="app">
     <div
-      class="bg-teal-200 text-teal-600 text-lg text-center pt-12 w-64 h-32 mx-auto my-12"
+      class="bg-teal-200 text-teal-600 card text-center shadow-lg pt-12 w-64 h-32 mx-auto mt-4"
     >
       Logo Placeholder
     </div>
-    <List></List>
+    <List :list="list"></List>
     <input
       type="button"
       value="Pick One"
-      class="bg-blue-500 hover:bg-blue-700 focus:outline-none focus:shadow-outline text-white font-bold block text-center rounded-none md:rounded fixed md:relative bottom-0 w-full md:w-1/2 md:m-auto h-12"
+      class="btn btn-primary bottom-fixed md:rounded-lg md:relative md:w-1/2 md:m-auto"
     />
   </div>
 </template>
@@ -19,6 +19,19 @@ import List from "./components/List.vue";
 
 export default {
   name: "App",
+  data: function() {
+    return {
+      list: []
+    };
+  },
+  created() {
+    // Read config file.
+    fetch("conf.json")
+      .then(response => response.json())
+      .then(json => {
+        this.list = json.list;
+      });
+  },
   components: {
     List
   }

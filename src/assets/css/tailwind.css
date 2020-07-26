@@ -1,5 +1,43 @@
 @tailwind base;
-
 @tailwind components;
+.btn {
+  @apply font-bold text-center px-4 py-2 h-12 rounded-lg outline-none transition duration-200 ease-in-out;
+}
+
+.btn-primary {
+  @apply bg-teal-500 text-white shadow-lg;
+}
+
+.btn-primary:hover {
+  @apply bg-teal-600;
+}
+
+.btn-primary:active {
+  @apply bg-teal-700;
+}
+
+.card {
+  @apply transition duration-200 ease-in-out select-none rounded-lg;
+}
+
+.item-active {
+  @apply bg-blue-200 text-blue-600;
+}
+
+.item-active:hover {
+  @apply shadow-lg;
+}
+
+.item-inactive {
+  @apply bg-gray-300 text-gray-600;
+}
+
+.item-inactive:hover {
+  @apply shadow-lg;
+}
+
+.bottom-fixed {
+  @apply block rounded-none fixed bottom-0 w-full;
+}
 
 @tailwind utilities;
