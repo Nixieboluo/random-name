@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto mt-8 mb-16 md:mb-8">
+    <h1 class="text-gray-600 text-5xl font-light text-center">待点名单</h1>
     <div
       class="grid gap-4 mx-6 my-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8"
     >

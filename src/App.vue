@@ -1,16 +1,19 @@
 <template>
   <div class="mb-4" id="app">
+    <!-- Logo here -->
     <div
-      class="bg-teal-200 text-teal-600 card text-center shadow-lg pt-12 w-64 h-32 mx-auto mt-4"
+      class="bg-teal-200 text-teal-600 card text-lg text-center shadow-lg pt-16 w-1/3 h-40 mx-auto mt-4"
     >
       Logo Placeholder
     </div>
 
+    <!-- The two pages -->
     <transition name="fade">
       <List :list="list" v-if="currentPage == 'List'"></List>
-      <Result :result="selectedList" v-if="currentPage == 'Result'"></Result>
+      <Result :result="listSelected" v-if="currentPage == 'Result'"></Result>
     </transition>
 
+    <!-- Buttons on pages -->
     <input
       v-if="currentPage == 'List'"
       type="button"
@@ -29,11 +32,13 @@
 </template>
 
 <style>
+/* Transitions between pages */
 .fade-enter-active {
   transition: opacity 0.5s;
 }
 .fade-leave-active {
   transition: opacity 0.5s;
+  display: none;
 }
 .fade-enter {
   opacity: 0;
@@ -54,7 +59,7 @@ export default {
     return {
       list: [],
       selectCount: 1,
-      selectedList: [],
+      listSelected: [],
       currentPage: "List"
     };
   },
@@ -116,10 +121,12 @@ export default {
       // Show result.
       this.showResult(heap);
     },
+
+    // Chear and fill the results array.
     showResult: function(result) {
-      this.selectedList = [];
+      this.listSelected = [];
       result.forEach(item => {
-        this.selectedList.push(this.list[item].name);
+        this.listSelected.push(this.list[item].name);
       });
     }
   },
@@ -129,7 +136,6 @@ export default {
       const active = [];
       for (let i = 0; i < this.list.length; i++) {
         const isActive = this.list[i].active;
-
         if (isActive == true) {
           active.push(i);
         }
