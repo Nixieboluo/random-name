@@ -36,6 +36,14 @@
   @apply shadow-lg;
 }
 
+.item-selected {
+  @apply bg-orange-200 text-orange-600;
+}
+
+.item-selected:hover {
+  @apply shadow-xl;
+}
+
 .bottom-fixed {
   @apply block rounded-none fixed bottom-0 w-full;
 }

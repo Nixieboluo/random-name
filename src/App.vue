@@ -5,25 +5,57 @@
     >
       Logo Placeholder
     </div>
-    <List :list="list"></List>
+
+    <transition name="fade">
+      <List :list="list" v-if="currentPage == 'List'"></List>
+      <Result :result="selectedList" v-if="currentPage == 'Result'"></Result>
+    </transition>
+
     <input
+      v-if="currentPage == 'List'"
       type="button"
       value="Pick One"
       class="btn btn-primary bottom-fixed md:rounded-lg md:relative md:w-1/2 md:m-auto"
-      v-on:click="random"
+      v-on:click="random(), (currentPage = 'Result')"
+    />
+    <input
+      v-if="currentPage == 'Result'"
+      type="button"
+      value="Go Back"
+      class="btn btn-primary bottom-fixed md:rounded-lg md:relative md:w-1/2 md:m-auto"
+      v-on:click="currentPage = 'List'"
     />
   </div>
 </template>
 
+<style>
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+  display: none;
+}
+</style>
+
 <script>
 import List from "./components/List.vue";
+import Result from "./components/Result.vue";
 
 export default {
   name: "App",
   data: function() {
     return {
       list: [],
-      selectCount: 1
+      selectCount: 1,
+      selectedList: [],
+      currentPage: "List"
     };
   },
   created() {
@@ -81,6 +113,14 @@ export default {
           }
         }
       }
+      // Show result.
+      this.showResult(heap);
+    },
+    showResult: function(result) {
+      this.selectedList = [];
+      result.forEach(item => {
+        this.selectedList.push(this.list[item].name);
+      });
     }
   },
   computed: {
@@ -98,7 +138,8 @@ export default {
     }
   },
   components: {
-    List
+    List,
+    Result
   }
 };
 </script>
