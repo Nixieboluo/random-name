@@ -2,11 +2,11 @@
   <modal
     classes="rounded-lg shadow-4xl"
     v-bind:adaptive="modalAdaptive"
-    height="260"
+    height="auto"
     @before-open="init"
     name="Settings"
   >
-    <div class="container mx-auto mt-1 mb-4">
+    <div class="container mx-auto mt-1 mb-16">
       <h1 class=" text-gray-600 text-4xl font-light text-center">
         设置
       </h1>
