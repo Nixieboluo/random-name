@@ -1,24 +1,31 @@
 # random-name
 
-## Project setup
-```
+一个使用 A-Res 算法的随机点名器.
+配置参考 [default.json](/public/default.json)
+
+## 使用方法
+```shell
+# 配置环境
 yarn install
-```
 
-### Compiles and hot-reloads for development
-```
+# 热重载开发环境
 yarn serve
-```
 
-### Compiles and minifies for production
-```
+# 生产构建
 yarn build
-```
 
-### Lints and fixes files
-```
+# Lint 检查
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## TODO
+* 加入错误检查并且能够告知用户
+* 加入更多配置项
+* 配置 PurgeCSS
+
+> 懒, 不想写
+
+## Credits
+* [Vue.js](https://vuejs.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [vue-js-modal](https://github.com/euvl/vue-js-modal)
