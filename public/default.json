@@ -51,5 +51,7 @@
       "active": true
     }
   ],
-  "selectCount": 2
+  "config": {
+    "selectCount": 2
+  }
 }

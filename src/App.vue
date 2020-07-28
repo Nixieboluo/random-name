@@ -1,11 +1,29 @@
 <template>
-  <div class="mb-4" id="app">
-    <!-- Logo here -->
-    <div
-      class="bg-teal-200 text-teal-600 card text-lg text-center shadow-lg pt-16 w-1/3 h-40 mx-auto mt-4"
+  <div class="mx-auto mb-4" id="app">
+    <!-- Settings entry -->
+    <svg
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      class="h-8 w-8 absolute top-0 right-0 m-4 text-gray-400 hover:text-gray-500 transition duration-200 ease-in-out"
+      v-on:click="openSettings"
     >
-      Logo Placeholder
-    </div>
+      <path
+        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+      ></path>
+      <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+    </svg>
+
+    <Settings
+      :configUrl="configUrl"
+      :config="config"
+      :listLength="this.list.length"
+      @applyConfigUrl="init"
+      @applyConfig="applyConfig"
+    ></Settings>
 
     <!-- The two pages -->
     <transition name="fade">
@@ -17,14 +35,14 @@
     <input
       v-if="currentPage == 'List'"
       type="button"
-      value="Pick One"
+      value="随机抽取"
       class="btn btn-primary bottom-fixed md:rounded-lg md:relative md:w-1/2 md:m-auto"
       v-on:click="random(), (currentPage = 'Result')"
     />
     <input
       v-if="currentPage == 'Result'"
       type="button"
-      value="Go Back"
+      value="返回列表"
       class="btn btn-primary bottom-fixed md:rounded-lg md:relative md:w-1/2 md:m-auto"
       v-on:click="currentPage = 'List'"
     />
@@ -52,33 +70,48 @@
 <script>
 import List from "./components/List.vue";
 import Result from "./components/Result.vue";
+import Settings from "./components/Settings.vue";
 
 export default {
   name: "App",
   data: function() {
     return {
+      configUrl: "default.json",
       list: [],
-      selectCount: 1,
+      config: {},
       listSelected: [],
       currentPage: "List"
     };
   },
   created() {
-    // Read config file.
-    // TODO: Allow uploading local configurations.
-    // TODO: Allow reading from URLs.
-    fetch("conf.json")
-      .then(response => response.json())
-      .then(json => {
-        this.list = json.list;
-        this.selectCount = json.selectCount;
-      });
+    this.init(this.configUrl);
   },
   methods: {
+    init: function(url) {
+      this.configUrl = url;
+      // Read config file.
+      fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          this.list = json.list;
+          this.config = json.config;
+        });
+    },
+    applyConfig: function(url, config) {
+      this.configUrl = url;
+      // Read config file (only list).
+      fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          this.list = json.list;
+        });
+      // Apply custom config
+      this.config = config;
+    },
     // An implement of Weighted Random Sampling (A-Res).
     random: function() {
       // Initialize the heap and item weights.
-      const heap = [...this.listActive].slice(0, this.selectCount);
+      const heap = [...this.listActive].slice(0, this.config.selectCount);
       const heapWeight = [];
 
       // For every element in heap, calculate a key value (calculated weight).
@@ -92,7 +125,7 @@ export default {
 
       if (heap.length < this.listActive.length) {
         // Now we can calculate other key values.
-        for (let i = this.selectCount; i < this.listActive.length; i++) {
+        for (let i = this.config.selectCount; i < this.listActive.length; i++) {
           // index: Index of current active item.
           const index = this.listActive[i];
           // minWeight: Minimal value in heap.
@@ -128,6 +161,11 @@ export default {
       result.forEach(item => {
         this.listSelected.push(this.list[item].name);
       });
+    },
+
+    // Open the Settigns modal.
+    openSettings: function() {
+      this.$modal.show("Settings");
     }
   },
   computed: {
@@ -145,7 +183,8 @@ export default {
   },
   components: {
     List,
-    Result
+    Result,
+    Settings
   }
 };
 </script>
