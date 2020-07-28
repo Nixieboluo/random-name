@@ -8,7 +8,7 @@
       stroke-width="2"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      class="h-8 w-8 absolute top-0 right-0 m-4 text-gray-400 hover:text-gray-500 transition duration-200 ease-in-out"
+      class="absolute top-0 right-0 w-8 h-8 m-4 text-gray-400 transition duration-200 ease-in-out hover:text-gray-500"
       v-on:click="openSettings"
     >
       <path

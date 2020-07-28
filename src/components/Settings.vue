@@ -7,7 +7,7 @@
     name="Settings"
   >
     <div class="container mx-auto mt-1 mb-16">
-      <h1 class=" text-gray-600 text-4xl font-light text-center">
+      <h1 class="text-4xl font-light text-center text-gray-600 ">
         设置
       </h1>
       <form class="px-4">
@@ -17,7 +17,7 @@
               配置地址
             </label>
             <input
-              class="input-text rounded-r-none w-2/3"
+              class="w-2/3 rounded-r-none input-text"
               type="url"
               id="configUrl"
               v-model="inputConfigUrl"
@@ -47,7 +47,7 @@
         </div>
         <div class="w-full mx-auto">
           <input
-            class="btn font-normal text-gray-600 hover:text-gray-800 bg-white hover:bg-gray-200 border-t rounded-t-none shadow-none absolute bottom-0 left-0 w-full"
+            class="absolute bottom-0 left-0 w-full font-normal text-gray-600 bg-white border-t rounded-t-none shadow-none btn hover:text-gray-800 hover:bg-gray-200"
             type="button"
             value="确定"
             v-on:click="close"
