@@ -1,6 +1,6 @@
 # random-name
 
-一个使用 A-Res 算法的随机点名器.
+一个随机点名器.
 配置参考 [default.json](/public/default.json)
 
 ## 使用方法
